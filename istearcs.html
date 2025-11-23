@@ -9,7 +9,7 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="navbar.css" />
+
     <style>
       * {
         margin: 0;
@@ -361,7 +361,7 @@
     <div id="vanta-bg"></div>
     <header role="banner">
       <!-- Navigation -->
-      <div id="navbar-placeholder"></div>
+      <div id="navbar"></div>
     </header>
     <main style="flex-grow: 1"></main>
     <div
@@ -418,6 +418,43 @@
       <p>&copy; 2025 ISTE PESCE. All rights reserved.</p>
     </footer>
     <!-- Vanta.js scripts for DOTS effect -->
+    <script>
+      (function () {
+        const navbarContainer = document.getElementById("navbar");
+        if (!navbarContainer) return;
+
+        fetch("navbar.html")
+          .then((r) => r.text())
+          .then((html) => {
+            navbarContainer.innerHTML = html;
+
+            if (!document.querySelector('link[href="navbar.css"]')) {
+              const link = document.createElement("link");
+              link.rel = "stylesheet";
+              link.href = "navbar.css";
+              document.head.appendChild(link);
+            }
+
+            const existing = document.querySelector(
+              "script[data-navbar-script]"
+            );
+            if (!existing) {
+              const s = document.createElement("script");
+              s.src = "navbar-script.js";
+              s.setAttribute("data-navbar-script", "true");
+              s.onload = function () {
+                document.dispatchEvent(new Event("navbarInserted"));
+              };
+              document.body.appendChild(s);
+            } else {
+              document.dispatchEvent(new Event("navbarInserted"));
+            }
+          })
+          .catch(function (err) {
+            console.error("Failed to load navbar:", err);
+          });
+      })();
+    </script>
     <script src="main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
@@ -436,63 +473,6 @@
         backgroundColor: 0x111115,
         size: 3.5,
         spacing: 35.0,
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const menuIcon = document.getElementById("menu-icon");
-        const navLinks = document.getElementById("nav-links");
-        const rotate_1 = document.getElementById("rotate_1");
-        const rotate_2 = document.getElementById("rotate_2");
-        const hide_1 = document.getElementById("hide_1");
-        const hide_2 = document.getElementById("hide_2");
-
-        function updateAriaExpanded(isExpanded) {
-          menuIcon.setAttribute("aria-pressed", isExpanded);
-          const dropdownToggles = document.querySelectorAll(".dropdown-toggle");
-          dropdownToggles.forEach((toggle) =>
-            toggle.setAttribute("aria-expanded", isExpanded)
-          );
-        }
-
-        menuIcon.addEventListener("click", () => {
-          navLinks.classList.toggle("open");
-          const open = navLinks.classList.contains("open");
-          updateAriaExpanded(open);
-          if (open) {
-            rotate_1.style.transform = "rotate(45deg) translate(5px, 5px)";
-            rotate_2.style.transform = "rotate(-45deg) translate(5px, -5px)";
-            hide_1.style.opacity = "0";
-            hide_2.style.opacity = "0";
-          } else {
-            rotate_1.style.transform = "rotate(0deg)";
-            rotate_2.style.transform = "rotate(0deg)";
-            hide_1.style.opacity = "1";
-            hide_2.style.opacity = "1";
-          }
-        });
-
-        // Keyboard accessible toggle
-        menuIcon.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            menuIcon.click();
-          }
-        });
-
-        // Close mobile menu on link click
-        document.querySelectorAll(".nav-links a").forEach((link) => {
-          link.addEventListener("click", () => {
-            if (navLinks.classList.contains("open")) {
-              navLinks.classList.remove("open");
-              updateAriaExpanded(false);
-              rotate_1.style.transform = "rotate(0deg)";
-              rotate_2.style.transform = "rotate(0deg)";
-              hide_1.style.opacity = "1";
-              hide_2.style.opacity = "1";
-            }
-          });
-        });
       });
     </script>
 
