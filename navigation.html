@@ -50,9 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Set active page
     const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinksA = document.querySelectorAll('.nav-links a');
     
-    navLinks.forEach(link => {
+    navLinksA.forEach(link => {
         if (link.getAttribute('href') === currentPage) {
             link.classList.add('active');
         }

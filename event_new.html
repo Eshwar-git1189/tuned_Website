@@ -12,7 +12,6 @@
     
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="navbar.css">
     
     <style>
         :root {
@@ -701,39 +700,35 @@
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <a href="index.html" class="brand">
-            <img src="Iste logo perfect background removed.png" alt="ISTE Logo" class="logo-img" />
-            <span class="site-title">ISTE</span>
-        </a>
-        
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="event.html" class="active">Events</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Student Chapters</a>
-                <ul class="dropdown-menu">
-                    <li><a href="istewings.html">ISTE WINGS</a></li>
-                    <li><a href="istearcs.html">ISTE ARCS</a></li>
-                </ul>
-            </li>
-            <li><a href="our_team.html">Team</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="aboutus.html">About</a></li>
-        </ul>
-        
-        <div class="theme-toggle" id="themeToggle">
-            <i class="fas fa-moon" id="themeIcon"></i>
-            <span id="themeText">Dark</span>
-        </div>
-        
-        <div class="mobile-menu-toggle" id="mobileToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
+        <!-- Navigation -->
+        <div id="navbar"></div>
+
+        <script>
+            (function loadNavbar(){
+                fetch("navbar.html")
+                    .then(res => res.text())
+                    .then(data => {
+                        document.getElementById("navbar").innerHTML = data;
+
+                        if (!document.querySelector('link[href="navbar.css"]')) {
+                            const link = document.createElement('link');
+                            link.rel = 'stylesheet';
+                            link.href = 'navbar.css';
+                            document.head.appendChild(link);
+                        }
+
+                        if (!document.querySelector('script[data-navbar-script]')) {
+                            const s = document.createElement('script');
+                            s.src = 'navbar-script.js';
+                            s.setAttribute('data-navbar-script', '');
+                            s.onload = () => document.dispatchEvent(new Event('navbarInserted'));
+                            document.body.appendChild(s);
+                        } else {
+                            document.dispatchEvent(new Event('navbarInserted'));
+                        }
+                    });
+            })();
+        </script>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -916,39 +911,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="navbar-script.js"></script>
-    <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const body = document.body;
-        
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            body.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
-        }
-        
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
-            } else {
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Dark';
-            }
-        }
+    <!-- Navbar script loads and initializes theme/navigation when navbar is inserted -->
         
         // Animation on Scroll
         const observerOptions = {
