@@ -1,1435 +1,1563 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Events & Activities - ISTE PESCE</title>
-    <link rel="icon" href="Iste logo perfect background removed.png" type="image/png">
-    
+    <link
+      rel="icon"
+      href="Iste logo perfect background removed.png"
+      type="image/png"
+    />
+
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="navbar.css">
-    
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="navbar.css" />
+
     <style>
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --accent-color: #ff8a00;
-            --text-dark: #1a202c;
-            --text-light: #64748b;
-            --bg-light: #f8fafc;
-            --bg-dark: #0f172a;
-            --white: #ffffff;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            --border-radius: 12px;
-            --transition: all 0.3s ease;
-            --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --dark-bg: #0f172a;
-            --card-bg-dark: #1e293b;
-            --card-bg-light: #ffffff;
+      :root {
+        --primary-color: #667eea;
+        --secondary-color: #764ba2;
+        --accent-color: #ff8a00;
+        --text-dark: #1a202c;
+        --text-light: #64748b;
+        --bg-light: #f8fafc;
+        --bg-dark: #0f172a;
+        --white: #ffffff;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        --border-radius: 12px;
+        --transition: all 0.3s ease;
+        --purple-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --dark-bg: #0f172a;
+        --card-bg-dark: #1e293b;
+        --card-bg-light: #ffffff;
+      }
+
+      [data-theme="dark"] {
+        --text-dark: #f7fafc;
+        --text-light: #a0aec0;
+        --bg-light: #0f172a;
+        --bg-dark: #1a202c;
+        --white: #1e293b;
+        --card-bg-light: #1e293b;
+      }
+
+      [data-theme="light"] {
+        --bg-light: #f8fafc;
+        --card-bg-light: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background: var(--bg-light);
+        transition: var(--transition);
+        overflow-x: hidden;
+      }
+
+      /* Navigation Styles */
+      .navbar {
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 1rem 2rem;
+        transition: var(--transition);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        gap: 1rem;
+      }
+
+      .logo-img {
+        width: 50px;
+        height: 50px;
+        transition: var(--transition);
+      }
+
+      .brand:hover .logo-img {
+        transform: scale(1.05);
+      }
+
+      .site-title {
+        font-family: "Playfair Display", serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--white);
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: #e2e8f0;
+        text-decoration: none;
+        font-weight: 500;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: var(--accent-color);
+        transition: var(--transition);
+        transform: translateX(-50%);
+      }
+
+      .nav-links a:hover::after,
+      .nav-links a.active::after {
+        width: 80%;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent-color);
+        background: rgba(255, 138, 0, 0.1);
+      }
+
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        padding: 0.5rem 0;
+        min-width: 200px;
+        box-shadow: var(--shadow-lg);
+        z-index: 1001;
+      }
+
+      .dropdown:hover .dropdown-menu {
+        display: block;
+      }
+
+      .dropdown-menu li {
+        list-style: none;
+      }
+
+      .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: #e2e8f0;
+        text-decoration: none;
+        transition: var(--transition);
+        border-radius: 0;
+      }
+
+      .dropdown-menu a::after {
+        display: none;
+      }
+
+      .dropdown-menu a:hover {
+        background: rgba(255, 138, 0, 0.1);
+        color: var(--accent-color);
+      }
+
+      /* Theme Toggle */
+      .theme-toggle {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50px;
+        padding: 0.5rem 1rem;
+        color: var(--white);
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .theme-toggle:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
+
+      /* Mobile Navigation */
+      .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .mobile-menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: var(--white);
+        margin: 3px 0;
+        transition: var(--transition);
+      }
+
+      /* Hero Section */
+      .hero {
+        background: var(--dark-bg);
+        min-height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--white);
+        position: relative;
+        overflow: hidden;
+        padding-top: 100px;
+        background-image: radial-gradient(
+            circle at 20% 50%,
+            rgba(102, 126, 234, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(118, 75, 162, 0.1) 0%,
+            transparent 50%
+          );
+      }
+
+      [data-theme="light"] .hero {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        color: var(--text-dark);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
+        animation: float 20s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
         }
-        
-        [data-theme="dark"] {
-            --text-dark: #f7fafc;
-            --text-light: #a0aec0;
-            --bg-light: #0f172a;
-            --bg-dark: #1a202c;
-            --white: #1e293b;
-            --card-bg-light: #1e293b;
+        50% {
+          transform: translateY(-20px) rotate(5deg);
         }
-        
-        [data-theme="light"] {
-            --bg-light: #f8fafc;
-            --card-bg-light: #ffffff;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        padding: 0 2rem;
+      }
+
+      .hero h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        animation: fadeInUp 1s ease-out 0.2s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--bg-light);
-            transition: var(--transition);
-            overflow-x: hidden;
+      }
+
+      /* Events Section */
+      .events {
+        padding: 4rem 0;
+        background: var(--dark-bg);
+        position: relative;
+        min-height: 100vh;
+      }
+
+      [data-theme="light"] .events {
+        background: #f8fafc;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* Event Filters */
+      .event-filters {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 0.75rem 2rem;
+        border: 2px solid rgba(102, 126, 234, 0.3);
+        background: transparent;
+        color: #e2e8f0;
+        border-radius: 50px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      [data-theme="light"] .filter-btn {
+        color: #4a5568;
+        border-color: rgba(102, 126, 234, 0.2);
+      }
+
+      .filter-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: var(--purple-gradient);
+        transition: left 0.3s ease;
+        z-index: -1;
+      }
+
+      .filter-btn:hover {
+        border-color: #667eea;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+      }
+
+      .filter-btn.active {
+        background: var(--purple-gradient);
+        border-color: transparent;
+        color: #ffffff;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .filter-btn.active::before {
+        left: 0;
+      }
+
+      /* Events Grid */
+      .events-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .event-card {
+        background: var(--card-bg-light);
+        border-radius: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+        position: relative;
+        isolation: isolate;
+      }
+
+      [data-theme="light"] .event-card {
+        border: 1px solid rgba(15, 23, 42, 0.08);
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      .event-card:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .event-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .event-card:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .event-card:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+      .event-card:nth-child(5) {
+        animation-delay: 0.5s;
+      }
+      .event-card:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
         }
-        
-        /* Navigation Styles */
-        .navbar {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            transition: var(--transition);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        to {
+          opacity: 1;
+          transform: translateY(0);
         }
-        
-        .brand {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            gap: 1rem;
-        }
-        
-        .logo-img {
-            width: 50px;
-            height: 50px;
-            transition: var(--transition);
-        }
-        
-        .brand:hover .logo-img {
-            transform: scale(1.05);
-        }
-        
-        .site-title {
-            font-family: "Playfair Display", serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--white);
-            letter-spacing: -0.5px;
-        }
-        
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
-        
-        .nav-links a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            position: relative;
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
-        
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 80%;
-        }
-        
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent-color);
-            background: rgba(255, 138, 0, 0.1);
-        }
-        
-        .dropdown {
-            position: relative;
-        }
-        
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--border-radius);
-            padding: 0.5rem 0;
-            min-width: 200px;
-            box-shadow: var(--shadow-lg);
-            z-index: 1001;
-        }
-        
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
-        
-        .dropdown-menu li {
-            list-style: none;
-        }
-        
-        .dropdown-menu a {
-            display: block;
-            padding: 0.75rem 1.5rem;
-            color: #e2e8f0;
-            text-decoration: none;
-            transition: var(--transition);
-            border-radius: 0;
-        }
-        
-        .dropdown-menu a::after {
-            display: none;
-        }
-        
-        .dropdown-menu a:hover {
-            background: rgba(255, 138, 0, 0.1);
-            color: var(--accent-color);
-        }
-        
-        /* Theme Toggle */
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
-            padding: 0.5rem 1rem;
-            color: var(--white);
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.875rem;
-        }
-        
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.05);
-        }
-        
-        /* Mobile Navigation */
-        .mobile-menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        
-        .mobile-menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--white);
-            margin: 3px 0;
-            transition: var(--transition);
-        }
-        
-        /* Hero Section */
-        .hero {
-            background: var(--dark-bg);
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-            padding-top: 100px;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
-        }
-        
-        [data-theme="light"] .hero {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            color: var(--text-dark);
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"/><circle cx="800" cy="300" r="150" fill="url(%23a)"/><circle cx="400" cy="700" r="120" fill="url(%23a)"/></svg>');
-            animation: float 20s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-        
+      }
+
+      .event-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.2),
+          rgba(118, 75, 162, 0.25)
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+      }
+
+      .event-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 30px 55px rgba(15, 23, 42, 0.45);
+      }
+
+      .event-card:hover::after {
+        opacity: 1;
+      }
+
+      .event-visual {
+        background: var(--purple-gradient);
+        padding: 2.5rem 1.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.4s ease;
+      }
+
+      .event-visual::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          circle at 30% 20%,
+          rgba(255, 255, 255, 0.35),
+          transparent 55%
+        );
+        opacity: 0.7;
+      }
+
+      .event-badge {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.5rem;
+        padding: 0.35rem 1rem;
+        background: rgba(34, 197, 94, 0.95);
+        color: #ffffff;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        z-index: 2;
+        box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+      }
+
+      .event-badge.competition {
+        background: rgba(59, 130, 246, 0.9);
+      }
+
+      .event-badge.major {
+        background: rgba(234, 179, 8, 0.9);
+      }
+
+      /* Event Icon */
+      .event-icon {
+        width: 96px;
+        height: 96px;
+        margin: 1rem auto 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 24px;
+        backdrop-filter: blur(12px);
+        position: relative;
+        z-index: 2;
+        transition: transform 0.4s ease;
+      }
+
+      .event-icon i {
+        font-size: 2.5rem;
+        color: #ffffff;
+      }
+
+      .event-body {
+        padding: 1.75rem 1.75rem 2rem;
+        background: var(--card-bg-light);
+      }
+
+      [data-theme="dark"] .event-body {
+        background: #121a2b;
+      }
+
+      .event-date {
+        text-align: left;
+        color: var(--text-light);
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      .event-card h3 {
+        font-size: 1.45rem;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.75rem;
+        line-height: 1.3;
+      }
+
+      [data-theme="dark"] .event-card h3 {
+        color: #f7fafc;
+      }
+
+      .event-card p {
+        color: var(--text-light);
+        margin-bottom: 1.25rem;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .event-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+      }
+
+      .event-location {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: var(--text-light);
+        font-size: 0.95rem;
+      }
+
+      .event-location i {
+        color: var(--primary-color);
+      }
+
+      .event-status {
+        padding: 0.35rem 1rem;
+        background: rgba(15, 23, 42, 0.08);
+        color: var(--text-dark);
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      [data-theme="dark"] .event-status {
+        background: rgba(255, 255, 255, 0.08);
+        color: #e2e8f0;
+      }
+
+      .event-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: space-between;
+      }
+
+      .event-btn {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+      }
+
+      .event-btn.primary {
+        background: var(--purple-gradient);
+        color: #ffffff;
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
+      }
+
+      .event-btn.primary:hover {
+        transform: translateY(-2px) scale(1.01);
+        box-shadow: 0 14px 28px rgba(102, 126, 234, 0.45);
+      }
+
+      .event-btn.secondary {
+        background: transparent;
+        color: var(--text-dark);
+        border: 1px solid rgba(15, 23, 42, 0.15);
+      }
+
+      [data-theme="dark"] .event-btn.secondary {
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .event-btn.secondary:hover {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+      }
+
+      .event-card:hover .event-visual {
+        transform: translateY(-6px);
+      }
+
+      .event-card:hover .event-icon {
+        transform: scale(1.06);
+      }
+
+      /* Timeline Section */
+      .timeline-section {
+        background: radial-gradient(
+            circle at top,
+            rgba(102, 126, 234, 0.15),
+            transparent 55%
+          ),
+          var(--dark-bg);
+        padding: 5rem 0;
+        position: relative;
+      }
+
+      [data-theme="light"] .timeline-section {
+        background: linear-gradient(135deg, #edf2ff 0%, #e0e7ff 100%);
+      }
+
+      .timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 3rem 0;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(180deg, #667eea, #764ba2);
+        opacity: 0.5;
+      }
+
+      .timeline-item {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .timeline-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .timeline-item:nth-child(even) {
+        justify-content: flex-end;
+      }
+
+      .timeline-dot {
+        width: 16px;
+        height: 16px;
+        background: #7c3aed;
+        border: 4px solid rgba(124, 58, 237, 0.35);
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 4px);
+        z-index: 2;
+        box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+      }
+
+      .timeline-card {
+        width: 44%;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 1.5rem;
+        color: #e2e8f0;
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
+        backdrop-filter: blur(8px);
+        transition: transform 0.35s ease, border 0.35s ease,
+          box-shadow 0.35s ease;
+        cursor: pointer;
+      }
+
+      [data-theme="light"] .timeline-card {
+        background: rgba(255, 255, 255, 0.95);
+        color: #1a202c;
+        border-color: rgba(15, 23, 42, 0.08);
+        box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+      }
+
+      .timeline-card:hover,
+      .timeline-card.active {
+        transform: translateY(-8px);
+        border-color: rgba(102, 126, 234, 0.8);
+        box-shadow: 0 25px 50px rgba(102, 126, 234, 0.25);
+      }
+
+      .timeline-card.active {
+        background: rgba(102, 126, 234, 0.15);
+      }
+
+      [data-theme="light"] .timeline-card.active {
+        background: rgba(102, 126, 234, 0.08);
+      }
+
+      .timeline-dot.active {
+        background: #f97316;
+        border-color: rgba(249, 115, 22, 0.4);
+        box-shadow: 0 0 25px rgba(249, 115, 22, 0.7);
+      }
+
+      .timeline-card h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+        color: inherit;
+      }
+
+      .timeline-card span {
+        display: block;
+        font-size: 0.9rem;
+        color: #cbd5f5;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      [data-theme="light"] .timeline-card span {
+        color: #4c51bf;
+      }
+
+      .timeline-card span,
+      .timeline-card.active span {
+        color: #cbd5f5;
+      }
+
+      [data-theme="light"] .timeline-card span,
+      [data-theme="light"] .timeline-card.active span {
+        color: #4c51bf;
+      }
+
+      .timeline-card p {
+        color: rgba(226, 232, 240, 0.85);
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+
+      [data-theme="light"] .timeline-card p {
+        color: #4a5568;
+      }
+
+      .timeline-card.active p {
+        color: rgba(255, 255, 255, 0.95);
+      }
+
+      [data-theme="light"] .timeline-card.active p {
+        color: #2d3748;
+      }
+
+      .timeline-cta {
+        text-align: center;
+        margin-top: 3rem;
+      }
+
+      .timeline-cta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.9rem 2.5rem;
+        border-radius: 999px;
+        background: var(--purple-gradient);
+        color: #ffffff;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.35);
+        transition: transform 0.3s ease;
+      }
+
+      .timeline-cta a:hover {
+        transform: translateY(-3px);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-dark);
+        color: var(--white);
+        padding: 3rem 0 2rem;
+        text-align: center;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .footer-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-social a {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, #7c3aed, #8b5cf6);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 12px 25px rgba(124, 58, 237, 0.35);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .footer-social a:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 35px rgba(124, 58, 237, 0.45);
+      }
+
+      .footer-social img {
+        width: 22px;
+        height: 22px;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #2d3748;
+        padding-top: 2rem;
+        color: #a0aec0;
+      }
+
+      .footer-bottom p {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            animation: fadeInUp 1s ease-out;
+          font-size: 2.5rem;
         }
-        
+
         .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.2s both;
+          font-size: 1.125rem;
         }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Events Section */
-        .events {
-            padding: 4rem 0;
-            background: var(--dark-bg);
-            position: relative;
-            min-height: 100vh;
-        }
-        
-        [data-theme="light"] .events {
-            background: #f8fafc;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        /* Event Filters */
-        .event-filters {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            padding: 0.75rem 2rem;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            background: transparent;
-            color: #e2e8f0;
-            border-radius: 50px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        [data-theme="light"] .filter-btn {
-            color: #4a5568;
-            border-color: rgba(102, 126, 234, 0.2);
-        }
-        
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--purple-gradient);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
-        .filter-btn:hover {
-            border-color: #667eea;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-        }
-        
-        .filter-btn.active {
-            background: var(--purple-gradient);
-            border-color: transparent;
-            color: #ffffff;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-        
-        .filter-btn.active::before {
-            left: 0;
-        }
-        
-        /* Events Grid */
+
         .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
         }
-        
+
+        .event-filters {
+          gap: 0.5rem;
+        }
+
+        .filter-btn {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.85rem;
+        }
+
         .event-card {
-            background: var(--card-bg-light);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeInUp 0.6s ease forwards;
-            opacity: 0;
-            position: relative;
-            isolation: isolate;
+          padding: 1.5rem;
         }
-        
-        [data-theme="light"] .event-card {
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-        }
-        
-        .event-card:nth-child(1) { animation-delay: 0.1s; }
-        .event-card:nth-child(2) { animation-delay: 0.2s; }
-        .event-card:nth-child(3) { animation-delay: 0.3s; }
-        .event-card:nth-child(4) { animation-delay: 0.4s; }
-        .event-card:nth-child(5) { animation-delay: 0.5s; }
-        .event-card:nth-child(6) { animation-delay: 0.6s; }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .event-card::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.25));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-        
-        .event-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 30px 55px rgba(15, 23, 42, 0.45);
-        }
-        
-        .event-card:hover::after {
-            opacity: 1;
-        }
-        
-        .event-visual {
-            background: var(--purple-gradient);
-            padding: 2.5rem 1.5rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.4s ease;
-        }
-        
-        .event-visual::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.35), transparent 55%);
-            opacity: 0.7;
-        }
-        
-        .event-badge {
-            position: absolute;
-            top: 1.25rem;
-            right: 1.5rem;
-            padding: 0.35rem 1rem;
-            background: rgba(34, 197, 94, 0.95);
-            color: #ffffff;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-            z-index: 2;
-            box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
-        }
-        
-        .event-badge.competition {
-            background: rgba(59, 130, 246, 0.9);
-        }
-        
-        .event-badge.major {
-            background: rgba(234, 179, 8, 0.9);
-        }
-        
-        /* Event Icon */
+
         .event-icon {
-            width: 96px;
-            height: 96px;
-            margin: 1rem auto 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 24px;
-            backdrop-filter: blur(12px);
-            position: relative;
-            z-index: 2;
-            transition: transform 0.4s ease;
+          width: 60px;
+          height: 60px;
         }
-        
+
         .event-icon i {
-            font-size: 2.5rem;
-            color: #ffffff;
+          font-size: 2rem;
         }
-        
-        .event-body {
-            padding: 1.75rem 1.75rem 2rem;
-            background: var(--card-bg-light);
-        }
-        
-        [data-theme="dark"] .event-body {
-            background: #121a2b;
-        }
-        
-        .event-date {
-            text-align: left;
-            color: var(--text-light);
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-        
+
         .event-card h3 {
-            font-size: 1.45rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.75rem;
-            line-height: 1.3;
+          font-size: 1.25rem;
         }
-        
-        [data-theme="dark"] .event-card h3 {
-            color: #f7fafc;
-        }
-        
-        .event-card p {
-            color: var(--text-light);
-            margin-bottom: 1.25rem;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-        
-        .event-meta {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .event-location {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-            color: var(--text-light);
-            font-size: 0.95rem;
-        }
-        
-        .event-location i {
-            color: var(--primary-color);
-        }
-        
-        .event-status {
-            padding: 0.35rem 1rem;
-            background: rgba(15, 23, 42, 0.08);
-            color: var(--text-dark);
-            border-radius: 999px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        [data-theme="dark"] .event-status {
-            background: rgba(255, 255, 255, 0.08);
-            color: #e2e8f0;
-        }
-        
+
         .event-actions {
-            display: flex;
-            gap: 1rem;
-            justify-content: space-between;
+          flex-direction: column;
         }
-        
+
         .event-btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-decoration: none;
+          width: 100%;
+          justify-content: center;
         }
-        
-        .event-btn.primary {
-            background: var(--purple-gradient);
-            color: #ffffff;
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
-        }
-        
-        .event-btn.primary:hover {
-            transform: translateY(-2px) scale(1.01);
-            box-shadow: 0 14px 28px rgba(102, 126, 234, 0.45);
-        }
-        
-        .event-btn.secondary {
-            background: transparent;
-            color: var(--text-dark);
-            border: 1px solid rgba(15, 23, 42, 0.15);
-        }
-        
-        [data-theme="dark"] .event-btn.secondary {
-            color: #e2e8f0;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-        
-        .event-btn.secondary:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
-        }
-        
-        .event-card:hover .event-visual {
-            transform: translateY(-6px);
-        }
-        
-        .event-card:hover .event-icon {
-            transform: scale(1.06);
-        }
-        
-        /* Timeline Section */
-        .timeline-section {
-            background: radial-gradient(circle at top, rgba(102, 126, 234, 0.15), transparent 55%), var(--dark-bg);
-            padding: 5rem 0;
-            position: relative;
-        }
-        
-        [data-theme="light"] .timeline-section {
-            background: linear-gradient(135deg, #edf2ff 0%, #e0e7ff 100%);
-        }
-        
-        .timeline {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 3rem 0;
-        }
-        
+
         .timeline::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, #667eea, #764ba2);
-            opacity: 0.5;
+          left: 25px;
         }
-        
-        .timeline-item {
-            display: flex;
-            justify-content: flex-start;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-        
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-        
+
+        .timeline-item,
         .timeline-item:nth-child(even) {
-            justify-content: flex-end;
+          justify-content: flex-start;
+          padding-left: 40px;
         }
-        
-        .timeline-dot {
-            width: 16px;
-            height: 16px;
-            background: #7c3aed;
-            border: 4px solid rgba(124, 58, 237, 0.35);
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, 4px);
-            z-index: 2;
-            box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
-        }
-        
+
         .timeline-card {
-            width: 44%;
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 1.5rem;
-            color: #e2e8f0;
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(8px);
-            transition: transform 0.35s ease, border 0.35s ease, box-shadow 0.35s ease;
-            cursor: pointer;
+          width: calc(100% - 40px);
         }
-        
-        [data-theme="light"] .timeline-card {
-            background: rgba(255, 255, 255, 0.95);
-            color: #1a202c;
-            border-color: rgba(15, 23, 42, 0.08);
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.15);
+
+        .timeline-dot {
+          left: 25px;
+          transform: translate(-50%, 4px);
         }
-        
-        .timeline-card:hover,
-        .timeline-card.active {
-            transform: translateY(-8px);
-            border-color: rgba(102, 126, 234, 0.8);
-            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.25);
-        }
-        
-        .timeline-card.active {
-            background: rgba(102, 126, 234, 0.15);
-        }
-        
-        [data-theme="light"] .timeline-card.active {
-            background: rgba(102, 126, 234, 0.08);
-        }
-        
-        .timeline-dot.active {
-            background: #f97316;
-            border-color: rgba(249, 115, 22, 0.4);
-            box-shadow: 0 0 25px rgba(249, 115, 22, 0.7);
-        }
-        
-        .timeline-card h4 {
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-            color: inherit;
-        }
-        
-        .timeline-card span {
-            display: block;
-            font-size: 0.9rem;
-            color: #cbd5f5;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        [data-theme="light"] .timeline-card span {
-            color: #4c51bf;
-        }
-        
-        .timeline-card span,
-        .timeline-card.active span {
-            color: #cbd5f5;
-        }
-        
-        [data-theme="light"] .timeline-card span,
-        [data-theme="light"] .timeline-card.active span {
-            color: #4c51bf;
-        }
-        
-        .timeline-card p {
-            color: rgba(226, 232, 240, 0.85);
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-        
-        [data-theme="light"] .timeline-card p {
-            color: #4a5568;
-        }
-        
-        .timeline-card.active p {
-            color: rgba(255, 255, 255, 0.95);
-        }
-        
-        [data-theme="light"] .timeline-card.active p {
-            color: #2d3748;
-        }
-        
-        .timeline-cta {
-            text-align: center;
-            margin-top: 3rem;
-        }
-        
-        .timeline-cta a {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.9rem 2.5rem;
-            border-radius: 999px;
-            background: var(--purple-gradient);
-            color: #ffffff;
-            font-weight: 600;
-            text-decoration: none;
-            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.35);
-            transition: transform 0.3s ease;
-        }
-        
-        .timeline-cta a:hover {
-            transform: translateY(-3px);
-        }
-        
-        
-        /* Footer */
-        .footer {
-            background: var(--bg-dark);
-            color: var(--white);
-            padding: 3rem 0 2rem;
-            text-align: center;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer-social a {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, #7c3aed, #8b5cf6);
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 12px 25px rgba(124, 58, 237, 0.35);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .footer-social a:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 18px 35px rgba(124, 58, 237, 0.45);
-        }
-        
-        .footer-social img {
-            width: 22px;
-            height: 22px;
-        }
-        
-        .footer-bottom {
-            border-top: 1px solid #2d3748;
-            padding-top: 2rem;
-            color: #a0aec0;
-        }
-        
-        .footer-bottom p {
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        
-        /* Responsive Styles */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.125rem;
-            }
-            
-            .events-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .event-filters {
-                gap: 0.5rem;
-            }
-            
-            .filter-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.85rem;
-            }
-            
-            .event-card {
-                padding: 1.5rem;
-            }
-            
-            .event-icon {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .event-icon i {
-                font-size: 2rem;
-            }
-            
-            .event-card h3 {
-                font-size: 1.25rem;
-            }
-            
-            .event-actions {
-                flex-direction: column;
-            }
-            
-            .event-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .timeline::before {
-                left: 25px;
-            }
-            
-            .timeline-item,
-            .timeline-item:nth-child(even) {
-                justify-content: flex-start;
-                padding-left: 40px;
-            }
-            
-            .timeline-card {
-                width: calc(100% - 40px);
-            }
-            
-            .timeline-dot {
-                left: 25px;
-                transform: translate(-50%, 4px);
-            }
-        }
-        
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.6s ease;
-        }
-        
-        .slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.6s ease;
-        }
-        
-        .slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
+      }
+
+      /* Animation Classes */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .fade-in.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .slide-in-left {
+        opacity: 0;
+        transform: translateX(-50px);
+        transition: all 0.6s ease;
+      }
+
+      .slide-in-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .slide-in-right {
+        opacity: 0;
+        transform: translateX(50px);
+        transition: all 0.6s ease;
+      }
+
+      .slide-in-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="brand">
-            <img src="Iste logo perfect background removed.png" alt="ISTE Logo" class="logo-img" />
-            <span class="site-title">ISTE</span>
-        </a>
-        
-        <ul class="nav-links" id="navLinks">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="event.html" class="active">Events</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle">Student Chapters</a>
-                <ul class="dropdown-menu">
-                    <li><a href="istewings.html">ISTE WINGS</a></li>
-                    <li><a href="istearcs.html">ISTE ARCS</a></li>
-                </ul>
-            </li>
-            <li><a href="our_team.html">Team</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="aboutus.html">About</a></li>
-        </ul>
-        
-        <div class="theme-toggle" id="themeToggle">
-            <i class="fas fa-moon" id="themeIcon"></i>
-            <span id="themeText">Dark</span>
-        </div>
-        
-        <div class="mobile-menu-toggle" id="mobileToggle">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+      <a href="index.html" class="brand">
+        <img
+          src="Iste logo perfect background removed.png"
+          alt="ISTE Logo"
+          class="logo-img"
+        />
+        <span class="site-title">ISTE</span>
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="event.html" class="active">Events</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle">Student Chapters</a>
+          <ul class="dropdown-menu">
+            <li><a href="our_team_new.html">Student Core</a></li>
+            <li><a href="istewings.html">ISTE WINGS</a></li>
+            <li><a href="istearcs.html">ISTE ARCS</a></li>
+          </ul>
+        </li>
+        <li><a href="our_team.html">Faculty Chapter</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="aboutus.html">About</a></li>
+      </ul>
+
+      <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span id="themeText">Dark</span>
+      </div>
+
+      <div class="mobile-menu-toggle" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero hero-animated events-hero">
-        <div class="hero-orbit hero-orbit-1"></div>
-        <div class="hero-orbit hero-orbit-2"></div>
-        <div class="hero-grid"></div>
-        <div class="hero-particles">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="hero-content">
-            <div class="hero-pill">ISTE Events</div>
-            <h1 class="hero-title">Events & Activities</h1>
-            <p class="hero-subtitle">
-                Hands‑on workshops, state‑level conventions, open mics, and conclaves that turn ideas into real‑world impact.
-            </p>
-            <div class="hero-highlights">
-                <div class="hero-highlight-card tilt-card">
-                    <i class="fas fa-microchip hero-highlight-icon"></i>
-                    <div>
-                        <h3>Tech & Beyond</h3>
-                        <p>From AI and coding battles to LinkedIn clinics and finance labs.</p>
-                    </div>
-                </div>
-                <div class="hero-highlight-card tilt-card">
-                    <i class="fas fa-camera hero-highlight-icon"></i>
-                    <div>
-                        <h3>Stories to Relive</h3>
-                        <p>Detailed recaps and galleries for every flagship event.</p>
-                    </div>
-                </div>
+      <div class="hero-orbit hero-orbit-1"></div>
+      <div class="hero-orbit hero-orbit-2"></div>
+      <div class="hero-grid"></div>
+      <div class="hero-particles">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="hero-content">
+        <div class="hero-pill">ISTE Events</div>
+        <h1 class="hero-title">Events & Activities</h1>
+        <p class="hero-subtitle">
+          Hands‑on workshops, state‑level conventions, open mics, and conclaves
+          that turn ideas into real‑world impact.
+        </p>
+        <div class="hero-highlights">
+          <div class="hero-highlight-card tilt-card">
+            <i class="fas fa-microchip hero-highlight-icon"></i>
+            <div>
+              <h3>Tech & Beyond</h3>
+              <p>
+                From AI and coding battles to LinkedIn clinics and finance labs.
+              </p>
             </div>
+          </div>
+          <div class="hero-highlight-card tilt-card">
+            <i class="fas fa-camera hero-highlight-icon"></i>
+            <div>
+              <h3>Stories to Relive</h3>
+              <p>Detailed recaps and galleries for every flagship event.</p>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Timeline Section -->
     <section class="timeline-section">
-        <div class="container">
-            <div class="section-title fade-in">
-                <h2>ISTE Journey Timeline</h2>
-                <p>Browse the highlights from our recent milestones and stay in sync with what is coming next.</p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <span class="timeline-dot"></span>
-                    <div class="timeline-card">
-                        <span>December 2023</span>
-                        <h4>19th ISTE Convention</h4>
-                        <p>Successfully hosted the state-wide ISTE convention with over 500 participants.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-dot"></span>
-                    <div class="timeline-card">
-                        <span>January 2024</span>
-                        <h4>New Student Chapter Launch</h4>
-                        <p>Introduced the new core team and outlined initiatives for the upcoming academic year.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-dot"></span>
-                    <div class="timeline-card">
-                        <span>February 2024</span>
-                        <h4>Kannada Kalotsava</h4>
-                        <p>Celebrated culture and heritage through performances, exhibitions, and campus-wide participation.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <span class="timeline-dot"></span>
-                    <div class="timeline-card">
-                        <span>March 2024</span>
-                        <h4>Technical Workshop Series</h4>
-                        <p>Rolled out monthly hands-on workshops covering AI, robotics, and product design.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="timeline-cta">
-                <a href="upcoming-events.html">
-                    Upcoming Events
-                    <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+      <div class="container">
+        <div class="section-title fade-in">
+          <h2>ISTE Journey Timeline</h2>
+          <p>
+            Browse the highlights from our recent milestones and stay in sync
+            with what is coming next.
+          </p>
         </div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-card">
+              <span>December 2023</span>
+              <h4>19th ISTE Convention</h4>
+              <p>
+                Successfully hosted the state-wide ISTE convention with over 500
+                participants.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-card">
+              <span>January 2024</span>
+              <h4>New Student Chapter Launch</h4>
+              <p>
+                Introduced the new core team and outlined initiatives for the
+                upcoming academic year.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-card">
+              <span>February 2024</span>
+              <h4>Kannada Kalotsava</h4>
+              <p>
+                Celebrated culture and heritage through performances,
+                exhibitions, and campus-wide participation.
+              </p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-card">
+              <span>March 2024</span>
+              <h4>Technical Workshop Series</h4>
+              <p>
+                Rolled out monthly hands-on workshops covering AI, robotics, and
+                product design.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="timeline-cta">
+          <a href="upcoming-events.html">
+            Upcoming Events
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Events Section -->
     <section class="events">
-        <div class="container">
-            <!-- Event Filters -->
-            <div class="event-filters">
-                <button class="filter-btn active" data-filter="all">All Events</button>
-                <button class="filter-btn" data-filter="convention">Conventions</button>
-                <button class="filter-btn" data-filter="workshop">Workshops</button>
-                <button class="filter-btn" data-filter="competition">Competitions</button>
-                <button class="filter-btn" data-filter="seminar">Seminars</button>
-            </div>
-            
-            <!-- Events Grid -->
-            <div class="events-grid">
-                <div class="event-card tilt-card" data-category="convention">
-                    <div class="event-visual">
-                        <span class="event-badge major">Major Event</span>
-                        <div class="event-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">December 2023</div>
-                        <h3>19th ISTE Convention</h3>
-                        <p>State-wide summit bringing together technical education leaders, students, and industry professionals for knowledge sharing and networking.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>PESCE Campus</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="iste-convention-19-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card tilt-card" data-category="workshop">
-                    <div class="event-visual">
-                        <span class="event-badge">Event</span>
-                        <div class="event-icon">
-                            <i class="fas fa-microphone"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">March 2024</div>
-                        <h3>Open Mic 6.0</h3>
-                        <p>Hands-on open mic session in the amphitheatre where participants share ideas, talents, and presentations with an enthusiastic audience.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Open Amphitheatre</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="open-mic-6-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card tilt-card" data-category="competition">
-                    <div class="event-visual">
-                        <span class="event-badge competition">Competition</span>
-                        <div class="event-icon">
-                            <i class="fas fa-bug"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">April 2024</div>
-                        <h3>Code Debugging</h3>
-                        <p>Coding contest focused on identifying and fixing bugs in provided code snippets, helping students sharpen their problem-solving skills.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>Online + Campus</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="code-debugging-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card tilt-card" data-category="workshop">
-                    <div class="event-visual">
-                        <span class="event-badge">Event</span>
-                        <div class="event-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">March 2024</div>
-                        <h3>LinkedIn Workshop</h3>
-                        <p>Learn how to build a professional LinkedIn profile and network effectively in the tech industry with expert guidance.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>PESCE Campus</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="linkedin-workshop-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card tilt-card" data-category="seminar">
-                    <div class="event-visual">
-                        <span class="event-badge">Event</span>
-                        <div class="event-icon">
-                            <i class="fas fa-briefcase"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">April 2024</div>
-                        <h3>Career Guidance Session</h3>
-                        <p>Get expert advice on career planning, resume building, and interview preparation from industry professionals.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>PESCE Campus</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="career-guidance-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="event-card tilt-card" data-category="seminar">
-                    <div class="event-visual">
-                        <span class="event-badge">Event</span>
-                        <div class="event-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="event-body">
-                        <div class="event-date">May 2024</div>
-                        <h3>Finance Conclave</h3>
-                        <p>Comprehensive conference on financial planning, investment strategies, and career opportunities in finance and fintech sectors.</p>
-                        <div class="event-meta">
-                            <div class="event-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>PESCE Campus</span>
-                            </div>
-                            <span class="event-status">Completed</span>
-                        </div>
-                        <div class="event-actions">
-                            <a href="#" class="event-btn primary">
-                                <i class="fas fa-camera"></i>
-                                View Gallery
-                            </a>
-                            <a href="finance-conclave-details.html" class="event-btn secondary">
-                                <i class="fas fa-info-circle"></i>
-                                Details
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <!-- Event Filters -->
+        <div class="event-filters">
+          <button class="filter-btn active" data-filter="all">
+            All Events
+          </button>
+          <button class="filter-btn" data-filter="convention">
+            Conventions
+          </button>
+          <button class="filter-btn" data-filter="workshop">Workshops</button>
+          <button class="filter-btn" data-filter="competition">
+            Competitions
+          </button>
+          <button class="filter-btn" data-filter="seminar">Seminars</button>
         </div>
-    </section>
 
+        <!-- Events Grid -->
+        <div class="events-grid">
+          <div class="event-card tilt-card" data-category="convention">
+            <div class="event-visual">
+              <span class="event-badge major">Major Event</span>
+              <div class="event-icon">
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">December 2023</div>
+              <h3>19th ISTE Convention</h3>
+              <p>
+                State-wide summit bringing together technical education leaders,
+                students, and industry professionals for knowledge sharing and
+                networking.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>PESCE Campus</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a
+                  href="iste-convention-19-details.html"
+                  class="event-btn secondary"
+                >
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card tilt-card" data-category="workshop">
+            <div class="event-visual">
+              <span class="event-badge">Event</span>
+              <div class="event-icon">
+                <i class="fas fa-microphone"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">March 2024</div>
+              <h3>Open Mic 6.0</h3>
+              <p>
+                Hands-on open mic session in the amphitheatre where participants
+                share ideas, talents, and presentations with an enthusiastic
+                audience.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Open Amphitheatre</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a href="open-mic-6-details.html" class="event-btn secondary">
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card tilt-card" data-category="competition">
+            <div class="event-visual">
+              <span class="event-badge competition">Competition</span>
+              <div class="event-icon">
+                <i class="fas fa-bug"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">April 2024</div>
+              <h3>Code Debugging</h3>
+              <p>
+                Coding contest focused on identifying and fixing bugs in
+                provided code snippets, helping students sharpen their
+                problem-solving skills.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Online + Campus</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a
+                  href="code-debugging-details.html"
+                  class="event-btn secondary"
+                >
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card tilt-card" data-category="workshop">
+            <div class="event-visual">
+              <span class="event-badge">Event</span>
+              <div class="event-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">March 2024</div>
+              <h3>LinkedIn Workshop</h3>
+              <p>
+                Learn how to build a professional LinkedIn profile and network
+                effectively in the tech industry with expert guidance.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>PESCE Campus</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a
+                  href="linkedin-workshop-details.html"
+                  class="event-btn secondary"
+                >
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card tilt-card" data-category="seminar">
+            <div class="event-visual">
+              <span class="event-badge">Event</span>
+              <div class="event-icon">
+                <i class="fas fa-briefcase"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">April 2024</div>
+              <h3>Career Guidance Session</h3>
+              <p>
+                Get expert advice on career planning, resume building, and
+                interview preparation from industry professionals.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>PESCE Campus</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a
+                  href="career-guidance-details.html"
+                  class="event-btn secondary"
+                >
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-card tilt-card" data-category="seminar">
+            <div class="event-visual">
+              <span class="event-badge">Event</span>
+              <div class="event-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+            </div>
+            <div class="event-body">
+              <div class="event-date">May 2024</div>
+              <h3>Finance Conclave</h3>
+              <p>
+                Comprehensive conference on financial planning, investment
+                strategies, and career opportunities in finance and fintech
+                sectors.
+              </p>
+              <div class="event-meta">
+                <div class="event-location">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>PESCE Campus</span>
+                </div>
+                <span class="event-status">Completed</span>
+              </div>
+              <div class="event-actions">
+                <a href="#" class="event-btn primary">
+                  <i class="fas fa-camera"></i>
+                  View Gallery
+                </a>
+                <a
+                  href="finance-conclave-details.html"
+                  class="event-btn secondary"
+                >
+                  <i class="fas fa-info-circle"></i>
+                  Details
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-social">
-                <a href="https://www.instagram.com/pesce.iste/" target="_blank" rel="noopener" aria-label="Instagram">
-                    <img src="instalogo.png" alt="Instagram logo">
-                </a>
-                <a href="https://www.linkedin.com/company/iste-pesce/" target="_blank" rel="noopener" aria-label="LinkedIn">
-                    <img src="linkedinlogo.png" alt="LinkedIn logo">
-                </a>
-                <a href="mailto:iste@pesce.ac.in" aria-label="Email">
-                    <img src="maillogo.png" alt="Email icon">
-                </a>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 ISTE PESCE. All rights reserved.</p>
-            </div>
+      <div class="footer-content">
+        <div class="footer-social">
+          <a
+            href="https://www.instagram.com/pesce.iste/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+          >
+            <img src="instalogo.png" alt="Instagram logo" />
+          </a>
+          <a
+            href="https://www.linkedin.com/company/iste-pesce/"
+            target="_blank"
+            rel="noopener"
+            aria-label="LinkedIn"
+          >
+            <img src="linkedinlogo.png" alt="LinkedIn logo" />
+          </a>
+          <a href="mailto:iste@pesce.ac.in" aria-label="Email">
+            <img src="maillogo.png" alt="Email icon" />
+          </a>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 ISTE PESCE. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
 
     <!-- Scripts -->
     <script src="navbar-script.js"></script>
     <script src="hero-effects.js"></script>
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        const body = document.body;
-        
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            body.setAttribute('data-theme', savedTheme);
-            updateThemeIcon(savedTheme);
+      // Theme Toggle
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const themeText = document.getElementById("themeText");
+      const body = document.body;
+
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        body.setAttribute("data-theme", savedTheme);
+        updateThemeIcon(savedTheme);
+      }
+
+      themeToggle.addEventListener("click", function () {
+        const currentTheme = body.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+        body.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateThemeIcon(newTheme);
+      });
+
+      function updateThemeIcon(theme) {
+        if (theme === "dark") {
+          themeIcon.className = "fas fa-sun";
+          themeText.textContent = "Light";
+        } else {
+          themeIcon.className = "fas fa-moon";
+          themeText.textContent = "Dark";
         }
-        
-        themeToggle.addEventListener('click', function() {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
+      }
+
+      // Animation on Scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
         });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-sun';
-                themeText.textContent = 'Light';
+      }, observerOptions);
+
+      // Observe elements for animation
+      document
+        .querySelectorAll(".fade-in, .slide-in-left, .slide-in-right")
+        .forEach((element) => {
+          observer.observe(element);
+        });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            const offsetTop = target.offsetTop - 80;
+            window.scrollTo({
+              top: offsetTop,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Event Filter Functionality
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const eventCards = document.querySelectorAll(".event-card");
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove active class from all buttons
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          // Add active class to clicked button
+          this.classList.add("active");
+
+          const filterValue = this.getAttribute("data-filter");
+
+          // Filter event cards
+          eventCards.forEach((card) => {
+            if (filterValue === "all") {
+              card.style.display = "block";
+              card.style.animation = "fadeInUp 0.6s ease forwards";
             } else {
-                themeIcon.className = 'fas fa-moon';
-                themeText.textContent = 'Dark';
+              const cardCategory = card.getAttribute("data-category");
+              if (cardCategory === filterValue) {
+                card.style.display = "block";
+                card.style.animation = "fadeInUp 0.6s ease forwards";
+              } else {
+                card.style.display = "none";
+              }
             }
+          });
+        });
+      });
+
+      // Timeline card interaction
+      const timelineCards = document.querySelectorAll(".timeline-card");
+      const timelineDots = document.querySelectorAll(".timeline-dot");
+
+      function activateTimelineCard(card) {
+        timelineCards.forEach((c) => c.classList.remove("active"));
+        timelineDots.forEach((dot) => dot.classList.remove("active"));
+
+        card.classList.add("active");
+        const dot = card.parentElement.querySelector(".timeline-dot");
+        if (dot) {
+          dot.classList.add("active");
         }
-        
-        // Animation on Scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe elements for animation
-        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(element => {
-            observer.observe(element);
-        });
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    const offsetTop = target.offsetTop - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Event Filter Functionality
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const eventCards = document.querySelectorAll('.event-card');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                const filterValue = this.getAttribute('data-filter');
-                
-                // Filter event cards
-                eventCards.forEach(card => {
-                    if (filterValue === 'all') {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeInUp 0.6s ease forwards';
-                    } else {
-                        const cardCategory = card.getAttribute('data-category');
-                        if (cardCategory === filterValue) {
-                            card.style.display = 'block';
-                            card.style.animation = 'fadeInUp 0.6s ease forwards';
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }
-                });
-            });
-        });
-        
-        // Timeline card interaction
-        const timelineCards = document.querySelectorAll('.timeline-card');
-        const timelineDots = document.querySelectorAll('.timeline-dot');
-        
-        function activateTimelineCard(card) {
-            timelineCards.forEach(c => c.classList.remove('active'));
-            timelineDots.forEach(dot => dot.classList.remove('active'));
-            
-            card.classList.add('active');
-            const dot = card.parentElement.querySelector('.timeline-dot');
-            if (dot) {
-                dot.classList.add('active');
-            }
-        }
-        
-        timelineCards.forEach(card => {
-            card.addEventListener('click', () => activateTimelineCard(card));
-            card.addEventListener('mouseenter', () => card.classList.add('hovered'));
-            card.addEventListener('mouseleave', () => card.classList.remove('hovered'));
-        });
-        
-        if (timelineCards.length) {
-            activateTimelineCard(timelineCards[0]);
-        }
+      }
+
+      timelineCards.forEach((card) => {
+        card.addEventListener("click", () => activateTimelineCard(card));
+        card.addEventListener("mouseenter", () =>
+          card.classList.add("hovered")
+        );
+        card.addEventListener("mouseleave", () =>
+          card.classList.remove("hovered")
+        );
+      });
+
+      if (timelineCards.length) {
+        activateTimelineCard(timelineCards[0]);
+      }
     </script>
-</body>
+  </body>
 </html>
